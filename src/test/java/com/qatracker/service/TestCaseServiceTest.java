@@ -59,4 +59,24 @@ class TestCaseServiceTest {
         assertThrows(NoSuchElementException.class,
                 () -> service.updateStatus(999L, TestStatus.PASS));
     }
+    // Story #5 acceptance criteria
+    @Test
+    void countAll_reflectsNumberOfTestCasesCreated() {
+        service.createTestCase("Test A", "steps A", "result A");
+        service.createTestCase("Test B", "steps B", "result B");
+
+        assertEquals(2, service.countAll());
+    }
+
+    @Test
+    void countByStatus_reflectsCorrectStatusCounts() {
+        var tc1 = service.createTestCase("Test A", "steps A", "result A");
+        var tc2 = service.createTestCase("Test B", "steps B", "result B");
+        service.updateStatus(tc1.getId(), TestStatus.PASS);
+        service.updateStatus(tc2.getId(), TestStatus.FAIL);
+
+        assertEquals(1, service.countByStatus(TestStatus.PASS));
+        assertEquals(1, service.countByStatus(TestStatus.FAIL));
+        assertEquals(0, service.countByStatus(TestStatus.BLOCKED));
+    }
 }

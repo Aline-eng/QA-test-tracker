@@ -1,6 +1,7 @@
 package com.qatracker.controller;
 
 import com.qatracker.model.TestCase;
+import com.qatracker.model.TestStatus;
 import com.qatracker.service.TestCaseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -58,5 +59,15 @@ public class TestCaseController {
         } catch (NoSuchElementException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
+    }
+    @GetMapping("/summary")
+    public SummaryReportResponse getSummaryReport() {
+        return new SummaryReportResponse(
+                service.countAll(),
+                service.countByStatus(TestStatus.PASS),
+                service.countByStatus(TestStatus.FAIL),
+                service.countByStatus(TestStatus.BLOCKED),
+                service.countByStatus(TestStatus.NOT_RUN)
+        );
     }
 }
