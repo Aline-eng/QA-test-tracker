@@ -1,8 +1,13 @@
 package com.qatracker.controller;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class CreateTestCaseRequest {
+    @NotBlank(message = "Title is required")
     private String title;
+    @NotBlank(message = "Steps are required")
     private String steps;
+    @NotBlank(message = "Expected result is required")
     private String expectedResult;
 
     public String getTitle() {
