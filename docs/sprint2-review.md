@@ -34,7 +34,7 @@ Follow `docs/manual-test-script.md` steps 6–10 for this sprint's new functiona
 [SCREENSHOT: GitHub Actions run for the Sprint 2 commits, green checkmark]
 
 ## Testing Evidence
-[SCREENSHOT: IntelliJ or `mvn test` output showing all tests passing, including new DefectServiceTest and summary report tests]
+![All tests passed for sprint 1 & sprint 2.jpg](../Screenshots/All%20tests%20passed%20for%20sprint%201%20%26%20sprint%202.jpg)
 
 ## Commit History Evidence
 [SCREENSHOT: GitHub commits page showing Sprint 2's incremental commits]
