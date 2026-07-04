@@ -31,13 +31,13 @@ Follow `docs/manual-test-script.md` steps 6–10 for this sprint's new functiona
 ![Check health endpoint.jpg](../Screenshots/Check%20health%20endpoint.jpg)
 
 ## CI/CD Evidence
-[SCREENSHOT: GitHub Actions run for the Sprint 2 commits, green checkmark]
+![CI CD pipeline including sprint 2.jpg](../Screenshots/CI%20CD%20pipeline%20including%20sprint%202.jpg)[SCREENSHOT: GitHub Actions run for the Sprint 2 commits, green checkmark]
 
 ## Testing Evidence
 ![All tests passed for sprint 1 & sprint 2.jpg](../Screenshots/All%20tests%20passed%20for%20sprint%201%20%26%20sprint%202.jpg)
 
 ## Commit History Evidence
-[SCREENSHOT: GitHub commits page showing Sprint 2's incremental commits]
+![commits.jpg](../Screenshots/commits.jpg)
 
 ## Stakeholder Feedback
 - Positive: defect logging closes the loop from "test failed" to "here's why" — matches real QA workflows.
