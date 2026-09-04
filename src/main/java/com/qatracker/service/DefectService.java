@@ -1,6 +1,7 @@
 package com.qatracker.service;
 
 import com.qatracker.model.Defect;
+import com.qatracker.model.DefectStatus;
 import com.qatracker.model.Severity;
 import com.qatracker.repository.DefectRepository;
 import org.slf4j.Logger;
@@ -8,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.NoSuchElementException;
 
 @Service
 public class DefectService {
@@ -34,5 +36,37 @@ public class DefectService {
 
     public Collection<Defect> getAllDefects() {
         return defectRepository.findAll();
+    }
+
+    public Defect getDefectById(Long id) {
+        return defectRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Defect " + id + " not found"));
+    }
+
+    // Future improvement #1 from sprint2-retrospective.md: defect lifecycle
+    public Defect updateStatus(Long id, DefectStatus newStatus) {
+        Defect defect = getDefectById(id);
+        DefectStatus oldStatus = defect.getStatus();
+        defect.setStatus(newStatus);
+        Defect saved = defectRepository.save(defect);
+        log.info("Defect id={} status changed {} -> {}", id, oldStatus, newStatus);
+        return saved;
+    }
+
+    // Future improvement #2 from sprint2-retrospective.md: severity breakdown
+    public long countAll() {
+        return defectRepository.count();
+    }
+
+    public long countBySeverity(Severity severity) {
+        return defectRepository.findAll().stream()
+                .filter(d -> d.getSeverity() == severity)
+                .count();
+    }
+
+    public long countByStatus(DefectStatus status) {
+        return defectRepository.findAll().stream()
+                .filter(d -> d.getStatus() == status)
+                .count();
     }
 }

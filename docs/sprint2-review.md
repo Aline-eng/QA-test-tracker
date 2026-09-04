@@ -43,3 +43,4 @@ Follow `docs/manual-test-script.md` steps 6–10 for this sprint's new functiona
 - Positive: defect logging closes the loop from "test failed" to "here's why" — matches real QA workflows.
 - Positive: the summary report gives an at-a-glance health check without needing to inspect every test case.
 - Concern: defects have no status of their own (open/resolved) — noted as a future backlog item beyond this assessment's scope.
+  **Update:** closed in the post-review hardening pass — see `docs/post-review-hardening.md`.

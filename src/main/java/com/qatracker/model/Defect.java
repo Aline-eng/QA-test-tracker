@@ -18,6 +18,8 @@ public class Defect {
     private String description;
     @Enumerated(EnumType.STRING)
     private Severity severity;
+    @Enumerated(EnumType.STRING)
+    private DefectStatus status;
 
     public Defect() {
     }
@@ -27,6 +29,7 @@ public class Defect {
         this.testCaseId = testCaseId;
         this.description = description;
         this.severity = severity;
+        this.status = DefectStatus.OPEN;
     }
 
     public Long getId() {
@@ -59,5 +62,13 @@ public class Defect {
 
     public void setSeverity(Severity severity) {
         this.severity = severity;
+    }
+
+    public DefectStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(DefectStatus status) {
+        this.status = status;
     }
 }

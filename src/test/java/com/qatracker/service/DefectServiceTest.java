@@ -1,6 +1,7 @@
 package com.qatracker.service;
 
 import com.qatracker.model.Defect;
+import com.qatracker.model.DefectStatus;
 import com.qatracker.model.Severity;
 import com.qatracker.repository.DefectRepository;
 import com.qatracker.repository.TestCaseRepository;
@@ -57,5 +58,46 @@ public class DefectServiceTest {
         defectService.logDefect(testCase.getId(), "Issue 2", Severity.CRITICAL);
 
         assertEquals(2, defectService.getAllDefects().size());
+    }
+
+    // Future improvement #1 from sprint2-retrospective.md: defect lifecycle
+    @Test
+    void logDefect_defaultsToOpenStatus() {
+        var testCase = testCaseService.createTestCase("Test A", "steps", "expected");
+        Defect defect = defectService.logDefect(testCase.getId(), "Issue 1", Severity.LOW);
+
+        assertEquals(DefectStatus.OPEN, defect.getStatus());
+    }
+
+    @Test
+    void updateStatus_forExistingDefect_updatesStatus() {
+        var testCase = testCaseService.createTestCase("Test A", "steps", "expected");
+        Defect defect = defectService.logDefect(testCase.getId(), "Issue 1", Severity.LOW);
+
+        Defect updated = defectService.updateStatus(defect.getId(), DefectStatus.RESOLVED);
+
+        assertEquals(DefectStatus.RESOLVED, updated.getStatus());
+    }
+
+    @Test
+    void updateStatus_forNonExistentDefect_throwsException() {
+        assertThrows(NoSuchElementException.class,
+                () -> defectService.updateStatus(999L, DefectStatus.RESOLVED));
+    }
+
+    // Future improvement #2 from sprint2-retrospective.md: severity breakdown
+    @Test
+    void countBySeverityAndStatus_reflectCorrectCounts() {
+        var testCase = testCaseService.createTestCase("Test A", "steps", "expected");
+        var d1 = defectService.logDefect(testCase.getId(), "Issue 1", Severity.LOW);
+        defectService.logDefect(testCase.getId(), "Issue 2", Severity.CRITICAL);
+        defectService.updateStatus(d1.getId(), DefectStatus.RESOLVED);
+
+        assertEquals(2, defectService.countAll());
+        assertEquals(1, defectService.countBySeverity(Severity.LOW));
+        assertEquals(1, defectService.countBySeverity(Severity.CRITICAL));
+        assertEquals(0, defectService.countBySeverity(Severity.HIGH));
+        assertEquals(1, defectService.countByStatus(DefectStatus.RESOLVED));
+        assertEquals(1, defectService.countByStatus(DefectStatus.OPEN));
     }
 }

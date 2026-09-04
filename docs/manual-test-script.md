@@ -89,3 +89,21 @@ Expect: `400` with a JSON body of field-level validation errors, e.g.:
 ```json
 { "title": "Title is required" }
 ```
+
+## 12. Resolve the defect logged in step 6
+`PUT /api/defects/1/status`
+```json
+{ "status": "RESOLVED" }
+```
+Expect: `200`, defect returned with `status: "RESOLVED"`
+
+## 13. Attempt to update the status of a non-existent defect (negative test)
+`PUT /api/defects/999/status`
+```json
+{ "status": "RESOLVED" }
+```
+Expect: `404`
+
+## 14. View defect summary (breakdown by severity and status)
+`GET /api/defects/summary`
+Expect: `200`, e.g. `{ "total": 1, "bySeverity": { "LOW": 0, "MEDIUM": 0, "HIGH": 1, "CRITICAL": 0 }, "byStatus": { "OPEN": 0, "RESOLVED": 1 } }`
