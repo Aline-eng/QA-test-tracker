@@ -85,4 +85,7 @@ Expect: `200`, `{ "status": "UP", ... }`
   "expectedResult": "some result"
 }
 ```
-Expect: `400` with field-level validation error for `title`
+Expect: `400` with a JSON body of field-level validation errors, e.g.:
+```json
+{ "title": "Title is required" }
+```
