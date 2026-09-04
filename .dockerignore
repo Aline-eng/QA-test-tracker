@@ -1,8 +1,10 @@
 target/
+data/
+.git/
 .idea/
 *.iml
 .vscode/
 .mvn/
-!.mvn/wrapper/maven-wrapper.jar
 *.log
-data/
+Screenshots/
+docs/

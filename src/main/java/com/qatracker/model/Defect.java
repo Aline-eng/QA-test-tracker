@@ -1,10 +1,25 @@
 package com.qatracker.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Defect {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long testCaseId;
+    @Column(length = 2000)
     private String description;
+    @Enumerated(EnumType.STRING)
     private Severity severity;
+    @Enumerated(EnumType.STRING)
+    private DefectStatus status;
 
     public Defect() {
     }
@@ -14,6 +29,7 @@ public class Defect {
         this.testCaseId = testCaseId;
         this.description = description;
         this.severity = severity;
+        this.status = DefectStatus.OPEN;
     }
 
     public Long getId() {
@@ -46,5 +62,13 @@ public class Defect {
 
     public void setSeverity(Severity severity) {
         this.severity = severity;
+    }
+
+    public DefectStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(DefectStatus status) {
+        this.status = status;
     }
 }

@@ -8,7 +8,7 @@ Add defect logging, a quality summary report, and basic monitoring (health endpo
 |---|---|
 | Structured logging | Added SLF4J logging in `TestCaseService` and `DefectService` for creation/status-change/defect events |
 | Fixed manual test script | See `docs/manual-test-script.md` — run in order for every demo, ensures consistent verification |
-| Input validation framework | Replaced manual null/blank checks with `spring-boot-starter-validation` (`@NotBlank`, `@NotNull`) and a `GlobalExceptionHandler` returning field-level 400 errors |
+| Input validation framework | Replaced manual null/blank checks with `spring-boot-starter-validation` (`@NotBlank`, `@NotNull`) and a `GlobalExceptionHandler` returning field-level 400 errors. **Note (post-review correction, see `docs/post-review-hardening.md`):** at the time of this review, `@Valid` was only wired up on `DefectController`; `TestCaseController` still fell through to the old manual checks. Both controllers now consistently use `@Valid` + `GlobalExceptionHandler`, with the manual checks in `TestCaseService` retained only as a documented defense-in-depth backstop for callers that bypass the web layer. |
 
 ## Delivered Stories
 | Story | Status | Evidence |
@@ -43,3 +43,4 @@ Follow `docs/manual-test-script.md` steps 6–10 for this sprint's new functiona
 - Positive: defect logging closes the loop from "test failed" to "here's why" — matches real QA workflows.
 - Positive: the summary report gives an at-a-glance health check without needing to inspect every test case.
 - Concern: defects have no status of their own (open/resolved) — noted as a future backlog item beyond this assessment's scope.
+  **Update:** closed in the post-review hardening pass — see `docs/post-review-hardening.md`.

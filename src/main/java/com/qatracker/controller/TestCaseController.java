@@ -3,6 +3,7 @@ package com.qatracker.controller;
 import com.qatracker.model.TestCase;
 import com.qatracker.model.TestStatus;
 import com.qatracker.service.TestCaseService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class TestCaseController {
 
     // Story #1: create a test case
     @PostMapping
-    public ResponseEntity<?> createTestCase(@RequestBody CreateTestCaseRequest request) {
+    public ResponseEntity<?> createTestCase(@Valid @RequestBody CreateTestCaseRequest request) {
         try {
             TestCase created = service.createTestCase(
                     request.getTitle(),

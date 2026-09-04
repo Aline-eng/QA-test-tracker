@@ -22,6 +22,8 @@ public class TestCaseService {
     }
 
     // Story #1: create a test case
+    // Primary validation now happens via @Valid on CreateTestCaseRequest in TestCaseController.
+    // These checks are a defense-in-depth backstop for callers that bypass the web layer (e.g. direct service calls/tests).
     public TestCase createTestCase(String title, String steps, String expectedResult) {
         if (title == null || title.isBlank()) {
             throw new IllegalArgumentException("Title is required");

@@ -20,3 +20,7 @@
 1. Add a defect status field (Open/Resolved) and an endpoint to update it.
 2. Extend the summary report to include defect counts grouped by severity.
 3. Move from in-memory storage to a persistent database (e.g. H2 or PostgreSQL) so data survives restarts.
+
+> **Update:** all three items above were closed in a post-submission hardening pass driven by
+> external code review — see `docs/post-review-hardening.md` for what changed and which commits
+> closed each one. This section is left as originally written to preserve the Sprint 2 record.
