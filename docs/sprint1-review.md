@@ -57,6 +57,8 @@ Deliver core test case CRUD + status tracking, with a CI pipeline running tests 
 - Concern: test cases only exist in memory — a server restart wipes all data.
   Acceptable for this prototype stage, but would need a persistent database
   before any real use.
+  **Update:** closed in the post-review hardening pass — see `docs/post-review-hardening.md`
+  and `docs/persistence-note.md`.
 - Concern: there's currently no way to see *why* a test failed — a failed status
   alone isn't enough for a QA workflow. This is flagged as the next priority
   (addressed in Sprint 2 via defect logging).
