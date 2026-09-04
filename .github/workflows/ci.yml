@@ -26,3 +26,36 @@ jobs:
 
       - name: Run tests
         run: mvn -B test
+
+  docker-smoke-test:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t qa-test-tracker:ci .
+
+      - name: Run container
+        run: docker run -d --name qa-test-tracker -p 8080:8080 qa-test-tracker:ci
+
+      - name: Wait for health endpoint and assert status is UP
+        run: |
+          for i in $(seq 1 30); do
+            status=$(curl -s http://localhost:8080/actuator/health | jq -r .status 2>/dev/null || echo "")
+            if [ "$status" = "UP" ]; then
+              echo "Health check passed: $status"
+              exit 0
+            fi
+            echo "Waiting for app to become healthy... (attempt $i)"
+            sleep 2
+          done
+          echo "Health check failed - app did not report UP within timeout"
+          docker logs qa-test-tracker
+          exit 1
+
+      - name: Tear down container
+        if: always()
+        run: docker rm -f qa-test-tracker

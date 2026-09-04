@@ -1,5 +1,7 @@
 # QA Test Case & Defect Tracker
 
+[![CI](https://github.com/Aline-eng/QA-test-tracker/actions/workflows/ci.yml/badge.svg)](https://github.com/Aline-eng/QA-test-tracker/actions/workflows/ci.yml)
+
 ## Product Vision
 A lightweight Test Case & Defect Tracker that lets a QA engineer create test cases,
 record execution results, log defects for failures, and view a quick pass/fail
