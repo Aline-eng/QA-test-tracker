@@ -1,11 +1,25 @@
 package com.qatracker.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class TestCase {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    @Column(length = 2000)
     private String steps;
+    @Column(length = 2000)
     private String expectedResult;
+    @Enumerated(EnumType.STRING)
     private TestStatus status;
 
     public TestCase() {

@@ -1,9 +1,22 @@
 package com.qatracker.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Defect {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long testCaseId;
+    @Column(length = 2000)
     private String description;
+    @Enumerated(EnumType.STRING)
     private Severity severity;
 
     public Defect() {

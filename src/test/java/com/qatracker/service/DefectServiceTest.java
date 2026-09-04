@@ -6,19 +6,31 @@ import com.qatracker.repository.DefectRepository;
 import com.qatracker.repository.TestCaseRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// @DataJpaTest wires up real (embedded, in-memory) JPA repositories per test,
+// isolated from the file-based database used at runtime, and rolls back after each test.
+@DataJpaTest
 public class DefectServiceTest {
+
+    @Autowired
+    private TestCaseRepository testCaseRepository;
+
+    @Autowired
+    private DefectRepository defectRepository;
+
     private DefectService defectService;
     private TestCaseService testCaseService;
 
     @BeforeEach
     void setUp() {
-        testCaseService = new TestCaseService(new TestCaseRepository());
-        defectService = new DefectService(new DefectRepository(), testCaseService);
+        testCaseService = new TestCaseService(testCaseRepository);
+        defectService = new DefectService(defectRepository, testCaseService);
     }
 
     @Test

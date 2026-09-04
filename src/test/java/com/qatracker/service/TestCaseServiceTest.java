@@ -5,18 +5,26 @@ import com.qatracker.model.TestStatus;
 import com.qatracker.repository.TestCaseRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// @DataJpaTest wires up a real (embedded, in-memory) JPA repository per test,
+// isolated from the file-based database used at runtime, and rolls back after each test.
+@DataJpaTest
 class TestCaseServiceTest {
+
+    @Autowired
+    private TestCaseRepository repository;
 
     private TestCaseService service;
 
     @BeforeEach
     void setUp() {
-        service = new TestCaseService(new TestCaseRepository());
+        service = new TestCaseService(repository);
     }
 
     // Story #1 acceptance criteria
